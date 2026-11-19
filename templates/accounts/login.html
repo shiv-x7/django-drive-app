@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Cloud Drive</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 35px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Segoe UI", Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #f5d8fa 0%,
+                #e2d9ff 48%,
+                #c6e7fa 100%
+            );
+        }
+
+        /* Main Login Card */
+        .login-card {
+            width: 100%;
+            max-width: 520px;
+            padding: 45px 48px 30px;
+            position: relative;
+            overflow: hidden;
+
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 35px;
+
+            box-shadow: 0 20px 60px rgba(94, 100, 180, 0.13);
+        }
+
+        /* Brand */
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 22px;
+
+            color: #5369e8;
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .brand-icon {
+            font-size: 30px;
+        }
+
+        /* Heading */
+        .login-title {
+            text-align: center;
+            color: #343b59;
+            font-size: 36px;
+            font-weight: 750;
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            max-width: 310px;
+            margin: 0 auto 28px;
+            text-align: center;
+            color: #858ba4;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* Floating Decorative Icons */
+        .decor-icon {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 65px;
+            height: 65px;
+            border-radius: 19px;
+            font-size: 29px;
+            color: white;
+
+            box-shadow: 0 12px 25px rgba(80, 80, 160, 0.16);
+            pointer-events: none;
+        }
+
+        .decor-lock {
+            top: 135px;
+            left: 32px;
+            background: linear-gradient(135deg, #a18bff, #7055df);
+            transform: rotate(-12deg);
+        }
+
+        .decor-image {
+            top: 125px;
+            right: 35px;
+            background: linear-gradient(135deg, #ffd63f, #ff9800);
+            transform: rotate(10deg);
+        }
+
+        .decor-folder {
+            top: 315px;
+            left: 38px;
+            background: linear-gradient(135deg, #ffbf19, #ff8500);
+            transform: rotate(-8deg);
+        }
+
+        .decor-music {
+            top: 305px;
+            right: 35px;
+            background: linear-gradient(135deg, #9d83ff, #6e52df);
+            transform: rotate(10deg);
+        }
+
+        /* Form Fields */
+        .login-form {
+            margin-top: 195px;
+        }
+
+        .form-label {
+            color: #59617e;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-wrapper .form-control {
+            width: 100%;
+            min-height: 56px;
+            padding: 15px 18px;
+
+            border: 1px solid transparent;
+            border-radius: 17px;
+            background: #edf0f8;
+
+            color: #414968;
+            font-size: 15px;
+
+            box-shadow: none;
+            transition: 0.25s ease;
+        }
+
+        .input-wrapper .form-control:focus {
+            background: #fff;
+            border-color: #75a9ff;
+            box-shadow: 0 0 0 4px rgba(79, 145, 255, 0.12);
+        }
+
+        .input-wrapper .form-control::placeholder {
+            color: #a0a6b9;
+        }
+
+        /* Django-generated input elements */
+        .input-wrapper input {
+            display: block;
+        }
+
+        /* Password visibility button */
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            transform: translateY(-50%);
+
+            border: none;
+            background: transparent;
+            color: #929ab3;
+            font-size: 19px;
+            cursor: pointer;
+        }
+
+        .password-toggle:hover {
+            color: #477ef5;
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            margin-top: -5px;
+            margin-bottom: 22px;
+
+            color: #78819e;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            color: #397cf4;
+        }
+
+        /* Login Button */
+        .login-button {
+            width: 100%;
+            min-height: 59px;
+            border: none;
+            border-radius: 30px;
+
+            background: linear-gradient(135deg, #78baff, #367af0);
+            color: white;
+
+            font-size: 17px;
+            font-weight: 700;
+
+            box-shadow: 0 10px 22px rgba(57, 126, 244, 0.24);
+            transition: all 0.25s ease;
+        }
+
+        .login-button:hover {
+            color: white;
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #66adff, #2869e7);
+            box-shadow: 0 13px 25px rgba(57, 126, 244, 0.32);
+        }
+
+        .login-button i {
+            margin-left: 6px;
+        }
+
+        /* Sign Up Link */
+        .signup-text {
+            text-align: center;
+            margin-top: 28px;
+            color: #858ba4;
+            font-size: 14px;
+        }
+
+        .signup-text a {
+            display: inline-block;
+            margin-top: 5px;
+            color: #477ff1;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .login-footer {
+            text-align: center;
+            margin-top: 55px;
+            color: #9299ad;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .login-footer strong {
+            color: #626c89;
+        }
+
+        /* Error Messages */
+        .error-box {
+            padding: 12px 15px;
+            margin-bottom: 18px;
+            border-radius: 12px;
+            background: #fff0f0;
+            color: #c0394b;
+            font-size: 13px;
+        }
+
+        .field-errors {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 7px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 576px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .login-card {
+                max-width: 430px;
+                padding: 35px 24px 25px;
+                border-radius: 28px;
+            }
+
+            .login-title {
+                font-size: 31px;
+            }
+
+            .decor-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 22px;
+                border-radius: 15px;
+            }
+
+            .decor-lock {
+                top: 135px;
+                left: 15px;
+            }
+
+            .decor-image {
+                top: 135px;
+                right: 15px;
+            }
+
+            .decor-folder {
+                top: 305px;
+                left: 17px;
+            }
+
+            .decor-music {
+                top: 305px;
+                right: 17px;
+            }
+
+            .login-form {
+                margin-top: 175px;
+            }
+
+            .login-footer {
+                margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="login-card">
+
+        <!-- Brand -->
+        <div class="brand">
+            <i class="bi bi-cloud-check-fill brand-icon"></i>
+            <span>Cloud Drive</span>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="login-title">Login</h1>
+
+        <p class="login-subtitle">
+            Let's upload and manage<br>
+            your files safely!
+        </p>
+
+        <!-- Decorative Icons -->
+        <div class="decor-icon decor-lock">
+            <i class="bi bi-lock-fill"></i>
+        </div>
+
+        <div class="decor-icon decor-image">
+            <i class="bi bi-image-fill"></i>
+        </div>
+
+        <div class="decor-icon decor-folder">
+            <i class="bi bi-folder-fill"></i>
+        </div>
+
+        <div class="decor-icon decor-music">
+            <i class="bi bi-music-note-beamed"></i>
+        </div>
+
+        <!-- Login Form -->
+        <form method="POST" class="login-form" id="loginForm">
+
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="error-box">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} py-2 small">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% for field in form %}
+
+                <div class="input-wrapper">
+
+                    <label for="{{ field.id_for_label }}"
+                           class="form-label">
+                        {{ field.label }}
+                    </label>
+
+                    {% if field.name == "password" %}
+
+                        <div class="position-relative">
+                            {{ field }}
+
+                            <button type="button"
+                                    class="password-toggle"
+                                    onclick="togglePassword('{{ field.id_for_label }}', this)"
+                                    aria-label="Show password">
+
+                                <i class="bi bi-eye"></i>
+
+                            </button>
+                        </div>
+
+                    {% else %}
+
+                        {{ field }}
+
+                    {% endif %}
+
+                    {% for error in field.errors %}
+                        <div class="field-errors">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            {% endfor %}
+
+            <a href="#" class="forgot-password">
+                Forgot your password?
+            </a>
+
+            <button type="submit" class="login-button">
+                Sign in <i class="bi bi-arrow-right"></i>
+            </button>
+
+        </form>
+
+        <!-- Sign Up Link -->
+        <div class="signup-text">
+            Don't have an account?<br>
+
+            <a href="{% url 'register' %}">
+                Create account here!
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="login-footer">
+            All data managed by <strong>Cloud Drive</strong><br>
+            All Rights Reserved.
+        </footer>
+
+    </main>
+
+    <script>
+        // Add Bootstrap-compatible styling to Django-generated fields.
+        document.querySelectorAll(
+            '.login-form input:not([type="checkbox"]):not([type="hidden"])'
+        ).forEach(function(input) {
+            input.classList.add('form-control');
+        });
+
+        // Show / Hide Password
+        function togglePassword(fieldId, button) {
+            const passwordInput = document.getElementById(fieldId);
+            const icon = button.querySelector('i');
+
+            if (!passwordInput) {
+                return;
+            }
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+                button.setAttribute('aria-label', 'Hide password');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+                button.setAttribute('aria-label', 'Show password');
+            }
+        }
+    </script>
+
+</body>
+</html>
